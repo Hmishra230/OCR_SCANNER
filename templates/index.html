@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Document Scanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="particles-bg"></div>
+    <main class="main-3d-container">
+        <section class="glass-card">
+            <header class="glass-header">
+                <span class="glass-icon"><i class="fas fa-file-invoice"></i></span>
+                <h1>OCR Document Scanner</h1>
+                <p class="subtitle">AI-powered Driver's License & Insurance Document Processing</p>
+            </header>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for message in messages %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="/upload" enctype="multipart/form-data" class="upload-form" id="upload-form">
+                <div class="upload-3d-section">
+                    <div class="upload-3d-card" id="license-drop">
+                        <div class="upload-3d-icon"><i class="fas fa-id-card"></i></div>
+                        <h3>Driver's License</h3>
+                        <div class="file-input-3d-container">
+                            <input type="file" name="license_file" id="license_file" accept=".jpg,.jpeg,.png,.pdf" required>
+                            <label for="license_file" class="file-label-3d">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Choose or Drag License File</span>
+                            </label>
+                        </div>
+                        <div class="file-info-3d">
+                            <small>Supported: JPG, PNG, PDF</small>
+                        </div>
+                        <div class="progress-bar" id="license-progress"></div>
+                    </div>
+                    <div class="upload-3d-card" id="insurance-drop">
+                        <div class="upload-3d-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Insurance Card</h3>
+                        <div class="file-input-3d-container">
+                            <input type="file" name="insurance_file" id="insurance_file" accept=".jpg,.jpeg,.png,.pdf" required>
+                            <label for="insurance_file" class="file-label-3d">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Choose or Drag Insurance File</span>
+                            </label>
+                        </div>
+                        <div class="file-info-3d">
+                            <small>Supported: JPG, PNG, PDF</small>
+                        </div>
+                        <div class="progress-bar" id="insurance-progress"></div>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn-3d">
+                    <i class="fas fa-magic"></i>
+                    <span>Process Documents</span>
+                    <div class="btn-shine"></div>
+                </button>
+            </form>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Results - Document Scanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="particles-bg"></div>
+    <main class="main-3d-container">
+        <section class="glass-card">
+            <header class="glass-header">
+                <span class="glass-icon"><i class="fas fa-check-circle"></i></span>
+                <h1>Extraction Results</h1>
+                <p class="subtitle">Automatically extracted document information</p>
+            </header>
+            {% if license_info.expired or insurance_info.expired %}
+                <div class="alert-container">
+                    {% if license_info.expired %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Warning: Driver's License has expired!
+                        </div>
+                    {% endif %}
+                    {% if insurance_info.expired %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Warning: Insurance Card has expired!
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="results-section">
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-user"></i>
+                        <h3>Personal Information</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" value="{{ license_info.name or 'Not found' }}" readonly>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-id-card"></i>
+                        <h3>Driver's License</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Issue Date</label>
+                        <input type="text" value="{{ license_info.issue_date or 'Not found' }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="text" value="{{ license_info.expiry_date or 'Not found' }}" 
+                               readonly class="{% if license_info.expired %}expired{% endif %}">
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Insurance Card</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Issue Date</label>
+                        <input type="text" value="{{ insurance_info.issue_date or 'Not found' }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="text" value="{{ insurance_info.expiry_date or 'Not found' }}" 
+                               readonly class="{% if insurance_info.expired %}expired{% endif %}">
+                    </div>
+                </div>
+            </div>
+            <a href="/" class="back-btn-3d">
+                <i class="fas fa-arrow-left"></i>
+                <span>Process New Documents</span>
+            </a>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 
