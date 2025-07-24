@@ -1,14 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/dashboard.py": {
+    "app.py": {
       "maxDuration": 30
     }
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/dashboard.py"
+      "dest": "app.py"
     }
   ]
 }
